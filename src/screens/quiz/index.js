@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
 import { colors } from './../../utils/colors'
-import { clearLocalNotification, seLocaltNotification } from './../../utils/notificationHelper'
+import { clearLocalNotification, setLocalNotification } from './../../utils/notificationHelper'
 
 class QuizScreen extends Component {
     state = {
@@ -41,7 +41,7 @@ class QuizScreen extends Component {
         const { questions } = this.props.navigation.state.params.deck
         if (this.state.currentStep >= questions.length - 1) {
             clearLocalNotification()
-                .then(seLocaltNotification)
+                .then(setLocalNotification)
             this.setState({
                 isQuizzing: false
             })
@@ -68,7 +68,7 @@ class QuizScreen extends Component {
                         <Text style={styles.stepText}>{this.state.currentStep + 1} / {questions.length}</Text>
                     </View>
                     <View style={styles.questionContainer}>
-                        <Text style={styles.questionText}>{this.state.flip ? questions[this.state.currentStep].question : questions[this.state.currentStep].answer}</Text>
+                        <Text style={styles.questionText}>{!this.state.flip ? questions[this.state.currentStep].question : questions[this.state.currentStep].answer}</Text>
                         <TouchableOpacity style={styles.flipButton} onPress={this.onClickFlipCard}>
                             <Text style={styles.buttonColor}> {this.state.flip ? 'Question' : 'Answer'} </Text>
                         </TouchableOpacity>
