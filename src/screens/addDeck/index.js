@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, StyleSheet, TextInput, KeyboardAvoidingView, Text, Button } from 'react-native'
+import { View, StyleSheet, TextInput, KeyboardAvoidingView, Text, Button, Keyboard } from 'react-native'
 import { PropTypes } from 'prop-types'
 import { NavigationActions } from "react-navigation";
 import { colors } from './../../utils/colors'
@@ -19,15 +19,20 @@ class AddDeckScreen extends Component {
             alert('You must set a name for deck')
             return
         }
-
+        Keyboard.dismiss()
         this.props.addNewDeck(this.state.name)
-        const resetAction = NavigationActions.reset({
-            index: 0,
-            actions: [
-                NavigationActions.navigate({ routeName: 'Home' })
-            ]
-        });
-        this.props.navigation.dispatch(resetAction);
+        this.props.navigation.navigate('DeckDetail', { title: this.state.name })
+        this.setState({
+            name: ''
+        })
+
+        // const resetAction = NavigationActions.reset({
+        //     index: 0,
+        //     actions: [
+        //         NavigationActions.navigate({ routeName: 'Home' })
+        //     ]
+        // });
+        // this.props.navigation.dispatch(resetAction);
     }
 
     render() {

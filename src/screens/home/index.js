@@ -18,7 +18,7 @@ class HomeScreen extends Component {
         const deck = decks[item]
 
         return (
-            <DeckItem deck={deck} viewDeckDetail={() => navigation.navigate('DeckDetail', { deck: deck })} />
+            <DeckItem deck={deck} viewDeckDetail={() => navigation.navigate('DeckDetail', { title: deck.title })} />
         );
     }
     render() {
